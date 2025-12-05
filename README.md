@@ -94,7 +94,7 @@ Ablation Analysis Code: https://github.com/SwapnaliKadam-CS/Ablation-Analysis-of
 ### 🖼 Results
 
 ### Confusion Matrix (Combined Model)
-![Combined Confusion Matrix](Results/confusion matrix.png)
+![Confusion Matrix](Results/confusion%20matrix.png)
 
 ### Model Analysis: Combined (BUS)
-![TModel Analysis: Combined (BUS)](Results/model analysis-combined bus.png)
+![Combined Bus](Results/model%20analysis-combined%20bus.png)
