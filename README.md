@@ -59,10 +59,9 @@ Bash# Ensure BERT files are downloaded and data splits are created
 !rm -rf params/bert_base # Force fresh download
 !python setup_experiments.py
 ```
-# 4. Usage: Running the Ablation Study
+### 4. Usage: Running the Ablation Study
 The core experiments are run using the modified train_engine function (defined in the accompanying notebook/scripts) to execute the four model variants (Combined, Conf Only, Class Only, and Standard Baseline).
 
-#Execution Command
 The commands below execute the primary ablation study:
 ```bash
 # Assuming train_engine and Args are defined:
@@ -80,12 +79,22 @@ acc_class, _, _, _ = train_engine("Class Only", mode='class', seed=DEFAULT_SEED)
 print("\nEXPERIMENT 4/4: Standard Validation (Baseline)")
 acc_std, _, _, _ = train_engine("Standard", mode='standard', val_ratio=0.1, seed=DEFAULT_SEED)
 ```
-# 5. Visualization and Validation 
+### 5. Visualization and Validation 
 The remaining code handle analysis and visualization:
 Generates the Confusion Matrices for all four models.
 Generates the epoch-by-epoch Training Dynamics plots (Accuracy, Stop Metric, Save Metric).
 Executes the Robustness Check by running the core experiments with an alternate random seed to ensure stability.
 Executes the Large-Scale Data Efficiency analysis to generate Figure 6.
 
-#🔗 Original Source Repository
-This project is an ablation analysis built upon the original work:Original Code: $\text{\url{https://github.com/DMCB-GIST/BUS-stop}}$Ablation Analysis Code: $\text{\url{https://github.com/SwapnaliKadam-CS/Ablation-Analysis-of-the-BUS-stop-Dual-Criterion-Mechanism}}$
+### 🔗 Original Source Repository
+This project is an ablation analysis built upon the original work:
+Original Code: https://github.com/DMCB-GIST/BUS-stop
+Ablation Analysis Code: https://github.com/SwapnaliKadam-CS/Ablation-Analysis-of-the-BUS-stop-Dual-Criterion-Mechanism
+
+### 🖼 Results
+
+### Confusion Matrix (Combined Model)
+![Combined Confusion Matrix](Results/confusion matrix.png)
+
+### Model Analysis: Combined (BUS)
+![TModel Analysis: Combined (BUS)](Results/model analysis-combined bus.png)
