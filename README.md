@@ -9,7 +9,7 @@ Our primary hypothesis is that this dual-criterion approach introduces unnecessa
 
 ### 🔑 Key Findings Summary
 
-The following table summarizes the performance metrics for the four tested early stopping strategies, directly supporting the hypothesis that the $\text{CS-Only}$ approach is both efficient and accurate.
+The following table summarizes the performance metrics for the four tested early stopping strategies, directly supporting the hypothesis that the CS-Only approach is both efficient and accurate.
 
 | Model Name | Stop Metric | Save Metric | Test Acc. | Total Epochs |
 | :--- | :--- | :--- | :--- | :--- |
@@ -20,7 +20,7 @@ The following table summarizes the performance metrics for the four tested early
 
 **Analysis:** The identical $\mathbf{0.8611}$ accuracy between **Combined (BUS)** and **CS-Only** confirms that $\text{S}_{\text{conf}}$ is sufficient for determining optimal convergence, thereby meeting the performance goal while requiring **50% fewer** metric calculations per epoch. The low accuracy ($\mathbf{0.7490}$) and early stopping of the **CDS-Only** variant demonstrates that $\text{S}_{\text{class}}$ is unsuitable as a standalone criterion.
 
-The results fully validate the hypothesis: the $\text{CS-Only}$ model successfully matches the original $\text{BUS-stop}$ model's peak accuracy while achieving a **50% reduction in algorithmic complexity**[cite: 9, 47, 87].
+The results fully validate the hypothesis: the CS-Only model successfully matches the original BUS-stop model's peak accuracy while achieving a **50% reduction in algorithmic complexity**.
 
 ## 💻 Requirements and Installation
 
