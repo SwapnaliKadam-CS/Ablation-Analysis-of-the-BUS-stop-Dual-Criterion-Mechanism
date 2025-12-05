@@ -1,67 +1,73 @@
-# 🚀 Ablation Analysis of the BUS-stop Dual-Criterion Mechanism
+🚀 Ablation Analysis of the BUS-stop Dual-Criterion Mechanism
+💡 Project Overview
 
-## 💡 Project Overview
+This repository contains the code and analysis for the ablation study of the BUS-stop early stopping methodology.
+The original BUS-stop method uses a dual-criterion mechanism on unlabeled data:
 
-This repository contains the code for the **ablation study of the BUS-stop** early stopping methodology. The original BUS-stop method employs a dual-criterion mechanism—**Confidence Similarity ($\text{S}_{\text{conf}}$)** for stability and **Class Distribution Similarity ($\text{S}_{\text{class}}$)** for checkpoint selection—on unlabeled data.
+Confidence Similarity (S<sub>conf</sub>) – measures prediction stability
 
-Our primary hypothesis is that this dual-criterion approach introduces unnecessary computational overhead, and a simplified **Confidence Similarity Only (CS-Only)** variant can achieve comparable performance (within 1% point) with 50% fewer metric calculations per epoch.
+Class Distribution Similarity (S<sub>class</sub>) – used for checkpoint selection
 
+🎯 Hypothesis
 
-### 🔑 Key Findings Summary
+The dual-criterion approach may introduce unnecessary computational overhead, and a simplified Confidence-Similarity-Only (CS-Only) variant might:
 
-The following table summarizes the performance metrics for the four tested early stopping strategies, directly supporting the hypothesis that the CS-Only approach is both efficient and accurate.
+Achieve accuracy within 1% of the original BUS-stop
 
-| Model Name | Stop Metric | Save Metric | Test Acc. | Total Epochs |
-| :--- | :--- | :--- | :--- | :--- |
-| **Combined (BUS)** | $\text{S}_{\text{conf}}$ | $\text{S}_{\text{class}}$ (queue avg) | **0.8611** | 15 |
-| **CS-Only (Ablated)** | $\text{S}_{\text{conf}}$ | $\min \text{S}_{\text{conf}}$ | **0.8611** | 15 |
-| **CDS-Only (Ablated)** | $-\text{S}_{\text{class}}$ | $\max \text{S}_{\text{class}}$ | 0.7490 | 6 |
-| **Standard (Val)** | Val Loss | $\min$ Val Loss | 0.8358 | 11 |
+Cut per-epoch metric calculations by 50%
 
-**Analysis:** Experiments on the SST-2 dataset partially support this hypothesis: the
-CS-Only variant matches the Combined (BUS) model’s peak
-accuracy (0.8611), confirming the performance goal, while the
-CDS-Only variant fails significantly (0.7490). This validates CS
-as the primary convergence driver but reveals CDS is essential
-for robust checkpoint selection. We conclude that CS alone
-suffices for stopping decisions, though CDS should be retained
-for checkpoint validation. This simplification reduces per-epoch
-metric calculations by 50% without compromising generalization
-performance, offering substantial efficiency gains for resource-
-constrained fine-tuning scenarios.
+🔑 Key Findings Summary
+Model Name	Stop Metric	Save Metric	Test Acc.	Total Epochs
+Combined (BUS)	S<sub>conf</sub>	S<sub>class</sub> (queue avg)	0.8611	15
+CS-Only (Ablated)	S<sub>conf</sub>
+min Sconf	S<sub>conf</sub>	0.8611	15
+CDS-Only (Ablated)	–	S<sub>class</sub>
+max Sclass	0.7490	6
+Standard (Val)	Validation Loss	min Val Loss	0.8358	11
+📊 Analysis Summary
 
-## 💻 Requirements and Installation
+Experiments on SST-2 partially support the hypothesis:
 
-This project was developed and executed entirely within a **Google Colab** environment, which is the recommended method for reproduction.
+CS-Only matches the Combined (BUS) model’s best accuracy (0.8611)
 
-Collab Link - https://colab.research.google.com/drive/1i1Uoo1B7ec1Faf8QZ43IJN5Rq_O6a6y6?usp=sharing
+CDS-Only performs poorly, confirming it is not reliable alone
 
-### 1. Clone the Repository (Cell 1)
+CS is the main driver for reliable stopping decisions
 
-Clone the original BUS-stop repository which serves as the base code, and navigate to the Keras implementation directory.
+CDS is still useful for checkpoint validation
 
-```bash
-# 1. Clone the base BUS-stop repository
-git clone [https://github.com/DMCB-GIST/BUS-stop.git](https://github.com/DMCB-GIST/BUS-stop.git)
+👉 Conclusion:
+Confidence Similarity alone is sufficient for stopping, while Class Similarity is helpful but not essential for checkpoint selection—leading to 50% fewer per-epoch metric calculations without sacrificing generalization.
+
+💻 Requirements and Installation
+
+This project is designed and tested entirely using Google Colab, which is the recommended setup.
+
+👉 Colab Notebook:
+https://colab.research.google.com/drive/1i1Uoo1B7ec1Faf8QZ43IJN5Rq_O6a6y6?usp=sharing
+
+📥 1. Clone the Repository (Cell 1)
+# Clone the base BUS-stop repository
+git clone https://github.com/DMCB-GIST/BUS-stop.git
 %cd BUS-stop/bus-stop-keras
 
-# 2.  Install Dependencies (Cell 1)
-The following dependencies are required:
-!pip install -q tensorflow tf_keras
-!pip install -q transformers==4.44.0 scikit-learn pandas sentencepiece datasets
+📦 2. Install Dependencies (Cell 1)
+pip install -q tensorflow tf_keras
+pip install -q transformers==4.44.0 scikit-learn pandas sentencepiece datasets
 
-# 3. Data and Model Setup (Cell 1)
-This script downloads the $\text{BERT}_{\text{base-uncased}}$ model weights and generates the balanced SST-2 data splits (200 labeled samples) used for the main ablation study.
-Bash# Ensure BERT files are downloaded and data splits are created
-!rm -rf params/bert_base # Force fresh download
-!python setup_experiments.py
+📂 3. Data and Model Setup (Cell 1)
 
-# 4. Usage: Running the Ablation Study
-The core experiments are run using the modified train_engine function (defined in the accompanying notebook/scripts) to execute the four model variants (Combined, Conf Only, Class Only, and Standard Baseline).
+Downloads BERT-base-uncased and generates the balanced SST-2 splits (200 labeled samples).
 
-#Execution Command (Cell 3)
-The commands below execute the primary ablation study:
+# Force fresh BERT download and generate splits
+rm -rf params/bert_base
+python setup_experiments.py
 
+🚀 4. Running the Ablation Study
+
+Experiments are executed using the custom train_engine function.
+
+Execution Command (Cell 3)
 # Assuming train_engine and Args are defined:
 DEFAULT_SEED = 42
 
@@ -75,17 +81,27 @@ print("\nEXPERIMENT 3/4: Class Distribution Only")
 acc_class, _, _, _ = train_engine("Class Only", mode='class', seed=DEFAULT_SEED)
 
 print("\nEXPERIMENT 4/4: Standard Validation (Baseline)")
-acc_std, _, _, _ = train_engine("Standard", mode='standard', val_ratio=0.1, seed=DEFAULT_SEED)
+acc_std, _, _, _ = train_engine(
+    "Standard",
+    mode='standard',
+    val_ratio=0.1,
+    seed=DEFAULT_SEED
+)
 
-# 5. Visualization and Validation (Cells 4, 5, 6)
-The remaining cells handle analysis and visualization:
-Cell 4: Generates the Confusion Matrices for all four models.
+📊 5. Visualization & Validation (Cells 4–6)
 
-Cell 5: Generates the epoch-by-epoch Training Dynamics plots (Accuracy, Stop Metric, Save Metric).
+Cell 4: Confusion matrices for all four models
 
-Cell 6: Executes the Robustness Check by running the core experiments with an alternate random seed to ensure stability.
+Cell 5: Training dynamics (Accuracy, Stop Metric, Save Metric)
 
-Cell 7: Executes the Large-Scale Data Efficiency analysis to generate Figure 6.
+Cell 6: Robustness check with alternate seed
 
-#🔗 Original Source Repository
-This project is an ablation analysis built upon the original work:Original Code: $\text{\url{https://github.com/DMCB-GIST/BUS-stop}}$Ablation Analysis Code: $\text{\url{https://github.com/SwapnaliKadam-CS/Ablation-Analysis-of-the-BUS-stop-Dual-Criterion-Mechanism}}$
+Cell 7: Large-scale data efficiency analysis (Figure 6)
+
+🔗 Source Repositories
+
+Original BUS-stop Code:
+https://github.com/DMCB-GIST/BUS-stop
+
+Ablation Analysis (This Project):
+https://github.com/SwapnaliKadam-CS/Ablation-Analysis-of-the-BUS-stop-Dual-Criterion-Mechanism
