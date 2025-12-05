@@ -2,18 +2,25 @@
 
 ## 💡 Project Overview
 
-This repository contains the code for the **ablation study of the BUS-stop** early stopping methodology. [cite_start]The original BUS-stop method employs a dual-criterion mechanism—**Confidence Similarity ($\text{S}_{\text{conf}}$)** for stability and **Class Distribution Similarity ($\text{S}_{\text{class}}$)** for checkpoint selection—on unlabeled data[cite: 6, 17].
+This repository contains the code for the **ablation study of the BUS-stop** early stopping methodology. The original BUS-stop method employs a dual-criterion mechanism—**Confidence Similarity ($\text{S}_{\text{conf}}$)** for stability and **Class Distribution Similarity ($\text{S}_{\text{class}}$)** for checkpoint selection—on unlabeled data.
 
-[cite_start]Our primary hypothesis is that this dual-criterion approach introduces unnecessary computational overhead, and a simplified **Confidence Similarity Only (CS-Only)** variant can achieve comparable performance (within 1% point) with 50% fewer metric calculations per epoch[cite: 8, 44].
+Our primary hypothesis is that this dual-criterion approach introduces unnecessary computational overhead, and a simplified **Confidence Similarity Only (CS-Only)** variant can achieve comparable performance (within 1% point) with 50% fewer metric calculations per epoch.
 
-### Key Findings Summary
 
-| Metric | Combined (BUS) | CS-Only | Standard (Val) |
-| :--- | :--- | :--- | :--- |
-| **Test Accuracy** | **0.8611** | **0.8611** | 0.8358 |
-| **Metric Calcs** | 2 ($\text{S}_{\text{conf}}$, $\text{S}_{\text{class}}$) | 1 ($\text{S}_{\text{conf}}$ only) | 1 (Val Loss) |
+### 🔑 Key Findings Summary
 
-[cite_start]The results fully validate the hypothesis: the $\text{CS-Only}$ model successfully matches the original $\text{BUS-stop}$ model's peak accuracy while achieving a **50% reduction in algorithmic complexity**[cite: 9, 47, 87].
+The following table summarizes the performance metrics for the four tested early stopping strategies, directly supporting the hypothesis that the $\text{CS-Only}$ approach is both efficient and accurate.
+
+| Model Name | Stop Metric | Save Metric | Test Acc. | Total Epochs |
+| :--- | :--- | :--- | :--- | :--- |
+| **Combined (BUS)** | $\text{S}_{\text{conf}}$ | $\text{S}_{\text{class}}$ (queue avg) | **0.8611** | 15 |
+| **CS-Only (Ablated)** | $\text{S}_{\text{conf}}$ | $\min \text{S}_{\text{conf}}$ | **0.8611** | 15 |
+| **CDS-Only (Ablated)** | $-\text{S}_{\text{class}}$ | $\max \text{S}_{\text{class}}$ | 0.7490 | 6 |
+| **Standard (Val)** | Val Loss | $\min$ Val Loss | 0.8358 | 11 |
+
+**Analysis:** The identical $\mathbf{0.8611}$ accuracy between **Combined (BUS)** and **CS-Only** confirms that $\text{S}_{\text{conf}}$ is sufficient for determining optimal convergence, thereby meeting the performance goal while requiring **50% fewer** metric calculations per epoch. The low accuracy ($\mathbf{0.7490}$) and early stopping of the **CDS-Only** variant demonstrates that $\text{S}_{\text{class}}$ is unsuitable as a standalone criterion.
+
+The results fully validate the hypothesis: the $\text{CS-Only}$ model successfully matches the original $\text{BUS-stop}$ model's peak accuracy while achieving a **50% reduction in algorithmic complexity**[cite: 9, 47, 87].
 
 ## 💻 Requirements and Installation
 
