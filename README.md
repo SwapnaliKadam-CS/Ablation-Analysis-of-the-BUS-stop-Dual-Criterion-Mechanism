@@ -98,3 +98,15 @@ Ablation Analysis Code: https://github.com/SwapnaliKadam-CS/Ablation-Analysis-of
 
 ### Model Analysis: Combined (BUS)
 ![Combined Bus](Results/model%20analysis-combined%20bus.png)
+
+### Model Analysis: Confidence Only
+![Confidence Only](Results/model-analysis-confidence-only.png)
+
+### Model Analysis: Class Only
+![Class Only](Results/ma-class-only.png)
+
+### Model Analysis: Standard Baseline
+![Standard Baseline](Results/ma-standard.png)
+
+### Effect of Labeled Samples on Accuracy (SST-2)
+![Final](Results/final-combined-graph.jpeg)
