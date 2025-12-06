@@ -42,8 +42,6 @@ constrained fine-tuning scenarios.
       
     * Paper Contributions
       - Methodology section with formal hypothesis and measurable goals, Experimental Design, Discussion and proposed optimal strategy.
-    * Key Finding:
-      Queue-averaging smoothing enhances checkpoint robustness by comparing S_class to rolling average instead of maximum
       
 * **Yash Varpe**
     * Email: yvarpe@binghamton.edu| Github username: YashVarpe
@@ -56,8 +54,6 @@ constrained fine-tuning scenarios.
       - Visualization
     * Paper Contributions
       - Abstract,Introduction, Background and Results with Visualization and data comparison.
-    * Key Finding:
-      Validated that CS-Only achieves identical accuracy (0.8611) to Combined model while reducing metric calculations by 50%
       
 ## 💻 Requirements and Installation
 
