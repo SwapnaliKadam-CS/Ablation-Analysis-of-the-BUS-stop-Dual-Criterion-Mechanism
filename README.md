@@ -32,41 +32,33 @@ constrained fine-tuning scenarios.
 
 ***Individual Contributions***
 
-Swapnali Kadam
-GitHub: @skadam3 | Email: skadam3@binghamton.edu
-
-****Code Contributions****
-
-Built complete training infrastructure: data loading pipeline, BERT tokenization, validation splitting
-Implemented Polynomial Decay learning rate scheduler for standardized convergence
-Developed Combined (BUS) model with queue-averaging smoothing innovation (N=5) to prevent transient checkpoint spikes
-Created Standard validation baseline for comparison
-Designed and executed large-scale data efficiency experiments (100-1500 samples), generated Figure 6
-
-****Paper Contributions****
-
-Introduction, Background, and Discussion sections
-Implementation details and proposed optimal strategy
-
-****Key Innovation:**** Queue-averaging smoothing enhances checkpoint robustness by comparing S_class to rolling average instead of maximum
-
-Yash Varpe
-GitHub: @yvarpe | Email: yvarpe@binghamton.edu
-****Code Contributions****
-
-Orchestrated all 4 ablation experiments (Combined, CS-Only, CDS-Only, Standard) with consistent hyperparameters
-Created confusion matrix analysis (Figure 1) validating accuracy parity
-Built training dynamics visualizations (Figures 2-5) showing convergence patterns
-Performed robustness validation across multiple random seeds
-
-****Paper Contributions****
-
-Methodology section with formal hypothesis and measurable goals
-Results section with quantitative comparison and failure mode analysis
-
-Key Finding: Validated that CS-Only achieves identical accuracy (0.8611) to Combined model while reducing metric calculations by 50%
-
-
+* **Swapnali Kadam**
+    * Email: skadam3@binghamton.edu| Github username: SwapnaliKadam-CS
+    * Code Contributions
+      - Built complete training infrastructure: data loading pipeline, BERT tokenization, validation splitting
+      - Implemented Polynomial Decay learning rate scheduler for standardized convergence
+      - Developed Combined (BUS) model with queue-averaging smoothing innovation (N=5) to prevent transient checkpoint spikes
+      - Designed and executed large-scale data efficiency experiments (100-1500 samples), generated Figure 6
+      
+    * Paper Contributions
+      - Methodology section with formal hypothesis and measurable goals, Experimental Design, Discussion and proposed optimal strategy.
+    * Key Finding:
+      Queue-averaging smoothing enhances checkpoint robustness by comparing S_class to rolling average instead of maximum
+      
+* **Yash Varpe**
+    * Email: yvarpe@binghamton.edu| Github username: YashVarpe
+    * Code Contributions
+      - Orchestrated all 4 ablation experiments (Combined, CS-Only, CDS-Only, Standard) with consistent hyperparameters
+      - Created Standard validation baseline for comparison
+      - Created confusion matrix analysis (Figure 1) validating accuracy parity
+      - Built training dynamics visualizations (Figures 2-5) showing convergence patterns
+      - Performed robustness validation across multiple random seeds
+      - Visualization
+    * Paper Contributions
+      - Abstract,Introduction, Background and Results with Visualization and data comparison.
+    * Key Finding:
+      Validated that CS-Only achieves identical accuracy (0.8611) to Combined model while reducing metric calculations by 50%
+      
 ## 💻 Requirements and Installation
 
 This project was developed and executed entirely within a **Google Colab** environment, which is the recommended method for reproduction.
