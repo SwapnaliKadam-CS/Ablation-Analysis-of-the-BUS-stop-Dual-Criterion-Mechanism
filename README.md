@@ -34,7 +34,7 @@ constrained fine-tuning scenarios.
 
 This project was developed and executed entirely within a **Google Colab** environment, which is the recommended method for reproduction.
 
-Collab Link - https://colab.research.google.com/drive/1i1Uoo1B7ec1Faf8QZ43IJN5Rq_O6a6y6?usp=sharing
+Collab Link - https://colab.research.google.com/drive/10-Nmzf0JmuHuLveh-xI6cFKWLd9bzI4m?usp=sharing
 
 ### 1. Clone the Repository
 
